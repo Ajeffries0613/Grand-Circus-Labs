@@ -1,30 +1,34 @@
-from checkers import build_board, get_count, resize_board, pivot_board
+def main():
+    while True:
+        try:
+            radius = float(input("Enter the radius of the circle: "))
+            if radius <= 0:
+                print("Radius must be a positive number.")
+                continue
+            break
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
 
-def game():
-    size = int(input("Enter the square board size (minimum 4, maximum 16): "))
-    if size < 4 or size > 16:
-        print("Invalid board size. Please enter a size between 4 and 16.")
-        return
+    circle = Circle(radius)
 
-    board = build_board(size)
-    print("\nRandom Board:")
-    print(board)
+    print(f"Diameter: {circle.calculate_diameter()}")
+    print(f"Circumference: {circle.calculate_circumference()}")
+    print(f"Area: {circle.calculate_area()}")
 
-    print("\nNumber of Empty cells:", get_count(board, 'Empty'))
-    print("Number of Red cells:", get_count(board, 'Red'))
-    print("Number of Black cells:", get_count(board, 'Black'))
-
-    new_size = int(input("\nEnter the new size for the board: "))
-    try:
-        resized_board = resize_board(board, new_size)
-        print("\nResized Board:")
-        print(resized_board)
-
-        pivoted_board = pivot_board(board)
-        print("\nPivoted Board:")
-        print(pivoted_board)
-    except ValueError as e:
-        print(e)
+    while True:
+        grow_choice = input("Do you want the circle to grow? (yes/no): ").lower()
+        if grow_choice == "yes":
+            circle.grow()
+            print("Circle has grown.")
+            print(f"New Radius: {circle.get_radius()}")
+            print(f"New Diameter: {circle.calculate_diameter()}")
+            print(f"New Circumference: {circle.calculate_circumference()}")
+            print(f"New Area: {circle.calculate_area()}")
+        elif grow_choice == "no":
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please enter 'yes' or 'no'.")
 
 if __name__ == "__main__":
-    game()
+    main()
